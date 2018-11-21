@@ -3,7 +3,6 @@ package com.hm.activitydemo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +30,6 @@ public class SecondActivity extends BaseActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         textView.setText(savedInstanceState.getString("text"));
-
     }
 
     @Override
@@ -43,7 +41,7 @@ public class SecondActivity extends BaseActivity {
     protected void initData() {
         TAG = getClass().getName();
         Log.e(TAG, "onCreate");
-        textView = (TextView) findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
     }
 
     @Override
@@ -58,7 +56,7 @@ public class SecondActivity extends BaseActivity {
 
     public void startThirdActivity(View view) {
         Intent starter = new Intent("com.hm.action.d");
-        starter.setDataAndType(Uri.parse("file://"), "text/plain");
+        starter.setType("text/plain");
         if (starter.resolveActivity(getPackageManager()) != null) {
             startActivity(starter);
         }

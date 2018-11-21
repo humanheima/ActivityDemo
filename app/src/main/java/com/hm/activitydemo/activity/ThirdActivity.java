@@ -1,6 +1,5 @@
 package com.hm.activitydemo.activity;
 
-import android.content.Context;
 import android.view.View;
 
 import com.hm.activitydemo.R;

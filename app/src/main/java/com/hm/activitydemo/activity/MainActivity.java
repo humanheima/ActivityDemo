@@ -1,6 +1,6 @@
 package com.hm.activitydemo.activity;
 
-import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,7 +25,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         TAG = getClass().getName();
-        Log.e(TAG, "onCreate");
     }
 
     @Override
@@ -35,6 +34,10 @@ public class MainActivity extends BaseActivity {
     }
 
     public void startSecondActivity(View view) {
-        SecondActivity.launch(this);
+        //SecondActivity.launch(this);
+        Intent intent = new Intent();
+        //intent.setComponent(new ComponentName(this, SecondActivity.class));
+        intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));
+        startActivity(intent);
     }
 }

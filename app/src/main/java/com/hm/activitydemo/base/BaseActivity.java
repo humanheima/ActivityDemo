@@ -9,11 +9,13 @@ import android.util.Log;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected String TAG = "BaseActivity";
+    protected String TAG;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = getClass().getSimpleName();
+        Log.e(TAG, "onCreate");
         setContentView(bindLayout());
         initData();
         bindEvent();
