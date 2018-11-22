@@ -32,7 +32,7 @@
         <activity
             android:name=".activity.SecondActivity"
             android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:taskAffinity="com.hm.task" />
         <activity
             android:name=".activity.ThirdActivity"
