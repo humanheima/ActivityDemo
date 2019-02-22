@@ -12,6 +12,7 @@ import android.view.View;
 import com.hm.activitydemo.R;
 import com.hm.activitydemo.base.BaseActivity;
 import com.hm.activitydemo.hook.InstrumentationProxy;
+import com.hm.activitydemo.hook.TargetActivity;
 
 import java.lang.reflect.Field;
 
@@ -30,7 +31,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         TAG = getClass().getName();
-        replaceActivityInstrumentation(this);
+        //replaceActivityInstrumentation(this);
     }
 
     private void replaceActivityInstrumentation(Activity activity) {
@@ -61,6 +62,11 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setComponent(new ComponentName(this, SecondActivity.class));
         intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));
+        startActivity(intent);
+    }
+
+    public void hookAMS(View view) {
+        Intent intent = new Intent(MainActivity.this, TargetActivity.class);
         startActivity(intent);
     }
 }
