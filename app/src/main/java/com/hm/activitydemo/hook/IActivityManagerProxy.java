@@ -34,8 +34,9 @@ public class IActivityManagerProxy implements InvocationHandler {
             }
             intent = (Intent) args[index];
             Intent subIntent = new Intent();
-            subIntent.setClassName("com.hm.activitydemo.activity", "com.hm.activitydemo.hook.StubActivity");
-            subIntent.putExtra("TARGET_INTENT", intent);
+            //包名别写错了
+            subIntent.setClassName("com.hm.activitydemo", "com.hm.activitydemo.hook.StubActivity");
+            subIntent.putExtra("target_intent", intent);
             args[index] = subIntent;
             Log.e(TAG, "invoke: hook成功");
         }
