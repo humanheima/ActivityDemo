@@ -1,15 +1,21 @@
 package com.hm.activitydemo.hook;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.hm.activitydemo.R;
+import com.hm.activitydemo.base.BaseActivity;
 
-public class TargetActivity extends AppCompatActivity {
+/**
+ * Created by dumingwei on 2019/2/23
+ * Desc: 代表插件Activity
+ */
+public class TargetActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_target);
+    protected int bindLayout() {
+        return R.layout.activity_target;
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

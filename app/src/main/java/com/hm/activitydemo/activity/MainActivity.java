@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
             Log.e(TAG, "replaceActivityInstrumentation: field=" + field);
             field.setAccessible(true);
             Instrumentation instrumentation = (Instrumentation) field.get(activity);
-            Instrumentation instrumentationProxy = new InstrumentationProxy(instrumentation);
+            Instrumentation instrumentationProxy = new InstrumentationProxy(instrumentation,getPackageManager());
             field.set(activity, instrumentationProxy);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void hookAMS(View view) {
+    public void hookActivity(View view) {
         Intent intent = new Intent(MainActivity.this, TargetActivity.class);
         startActivity(intent);
     }

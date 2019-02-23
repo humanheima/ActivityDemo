@@ -19,7 +19,14 @@ public class App extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         try {
-            HookHelper.hookAMS();
+            /**
+             * 者两行代码需要一起调用
+             */
+            //HookHelper.hookAMS();
+            //HookHelper.hookHandler();
+
+            HookHelper.hookInstrumentation(base);
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "attachBaseContext: " + e.getMessage());

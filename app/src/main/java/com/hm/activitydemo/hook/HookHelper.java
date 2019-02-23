@@ -1,6 +1,9 @@
 package com.hm.activitydemo.hook;
 
+import android.app.Instrumentation;
+import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
@@ -12,6 +15,7 @@ import java.lang.reflect.Proxy;
 public class HookHelper {
 
     public static final String TARGET_INTENT = "TARGET_INTENT";
+    public static final String TARGET_INTENT_NAME = "TARGET_INTENT_NAME";
 
     /**
      * 替换IActivityManager
@@ -36,6 +40,26 @@ public class HookHelper {
         Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
                 new Class<?>[]{iActivityManagerClazz}, new IActivityManagerProxy(iActivityManager));
         mInstanceField.set(defaultSingleton, proxy);
+    }
+
+    public static void hookHandler() throws Exception {
+        Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+        Object currentActivityThread = FieldUtil.getField(activityThreadClass, null, "sCurrentActivityThread");
+        Field mHField = FieldUtil.getField(activityThreadClass, "mH");
+        Handler mH = (Handler) mHField.get(currentActivityThread);
+        FieldUtil.setField(Handler.class, mH, "mCallback", new HCallback(mH));
+
+    }
+
+    public static void hookInstrumentation(Context context) throws Exception {
+        Class<?> contextImplClazz = Class.forName("android.app.ContextImpl");
+        Field mMainThreadField = FieldUtil.getField(contextImplClazz, "mMainThread");
+        Object activityThread = mMainThreadField.get(context);
+        Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
+        Field mInstrumentationField = FieldUtil.getField(activityThreadClazz, "mInstrumentation");
+        FieldUtil.setField(activityThreadClazz, activityThread, "mInstrumentation",
+                new InstrumentationProxy((Instrumentation) mInstrumentationField.get(activityThread),
+                        context.getPackageManager()));
     }
 
 }
