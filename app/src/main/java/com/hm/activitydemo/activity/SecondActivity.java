@@ -44,6 +44,7 @@ public class SecondActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
     }
 
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

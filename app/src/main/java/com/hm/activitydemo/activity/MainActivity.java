@@ -69,4 +69,14 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(MainActivity.this, TargetActivity.class);
         startActivity(intent);
     }
+
+    public void testOnNewIntent(View view) {
+        ForthActivity.launch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: ");
+    }
 }

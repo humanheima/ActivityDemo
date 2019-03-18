@@ -36,3 +36,8 @@ Activity启动流程：
 7、上述流程都执行完毕后，会去执行栈顶Activity的onStop过程。
 
 原文：https://blog.csdn.net/lj19851227/article/details/82562115
+
+### 关于onNewIntent方法 ，Activity的启动模式无论是 singleTop,singleTask,singleInstance都会调用。
+例如要被启动的Activity叫A
+1. A的启动模式是singleTop，如果A在栈顶，那么再次启动A那么onNewIntent方法会被调用。
+2. A的启动模式是singleTask，或者singleInstance，无论A在不在栈顶，那么再次启动A那么onNewIntent方法会被调用。

@@ -20,7 +20,7 @@ public class App extends Application {
         super.attachBaseContext(base);
         try {
             /**
-             * 者两行代码需要一起调用
+             * 这两行代码需要一起调用
              */
             //HookHelper.hookAMS();
             //HookHelper.hookHandler();
