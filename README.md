@@ -41,3 +41,19 @@ Activity启动流程：
 例如要被启动的Activity叫A
 1. A的启动模式是singleTop，如果A在栈顶，那么再次启动A那么onNewIntent方法会被调用。
 2. A的启动模式是singleTask，或者singleInstance，无论A在不在栈顶，那么再次启动A那么onNewIntent方法会被调用。
+
+### onSaveInstanceState方法和onRestoreInstanceState方法的调用时机
+```
+com.hm.activitydemo E/SecondActivity: onCreate
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onStart
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onPause
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onSaveInstanceState: 
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onStop
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onDestroy
+com.hm.activitydemo E/SecondActivity: onCreate
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onStart
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onRestoreInstanceState: 
+com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
+
+```

@@ -23,12 +23,14 @@ public class SecondActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.e(TAG, "onSaveInstanceState: ");
         outState.putString("text", "hello text");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        Log.e(TAG, "onRestoreInstanceState: ");
         textView.setText(savedInstanceState.getString("text"));
     }
 
@@ -40,7 +42,6 @@ public class SecondActivity extends BaseActivity {
     @Override
     protected void initData() {
         TAG = getClass().getName();
-        Log.e(TAG, "onCreate");
         textView = findViewById(R.id.textView);
     }
 

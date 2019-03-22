@@ -34,7 +34,6 @@
         </activity>
         <activity
             android:name=".activity.SecondActivity"
-            android:configChanges="orientation|screenSize"
             android:launchMode="singleInstance"
             android:taskAffinity="com.hm.task" />
         <activity
