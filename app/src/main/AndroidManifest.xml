@@ -34,8 +34,7 @@
         </activity>
         <activity
             android:name=".activity.SecondActivity"
-            android:launchMode="singleInstance"
-            android:taskAffinity="com.hm.task" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ThirdActivity"
             android:launchMode="singleTask"

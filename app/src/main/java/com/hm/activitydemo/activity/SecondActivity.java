@@ -1,5 +1,7 @@
 package com.hm.activitydemo.activity;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +20,12 @@ public class SecondActivity extends BaseActivity {
     public static void launch(Context context) {
         Intent starter = new Intent(context, SecondActivity.class);
         context.startActivity(starter);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: ");
     }
 
     @Override
