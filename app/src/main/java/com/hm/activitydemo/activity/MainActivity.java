@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
             Log.e(TAG, "replaceActivityInstrumentation: field=" + field);
             field.setAccessible(true);
             Instrumentation instrumentation = (Instrumentation) field.get(activity);
-            Instrumentation instrumentationProxy = new InstrumentationProxy(instrumentation,getPackageManager());
+            Instrumentation instrumentationProxy = new InstrumentationProxy(instrumentation, getPackageManager());
             field.set(activity, instrumentationProxy);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -71,6 +71,10 @@ public class MainActivity extends BaseActivity {
     }
 
     public void testOnNewIntent(View view) {
+        //ForthActivity.launch(this);
+    }
+
+    public void testHandler(View view) {
         ForthActivity.launch(this);
     }
 

@@ -1,8 +1,6 @@
 package com.hm.activitydemo.activity;
 
 import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,9 +15,9 @@ public class SecondActivity extends BaseActivity {
 
     private TextView textView;
 
-    public static void launch(Context context) {
+    public static void launch(Activity context) {
         Intent starter = new Intent(context, SecondActivity.class);
-        context.startActivity(starter);
+        context.startActivityForResult(starter, 100);
     }
 
     @Override
@@ -70,5 +68,21 @@ public class SecondActivity extends BaseActivity {
         if (starter.resolveActivity(getPackageManager()) != null) {
             startActivity(starter);
         }
+    }
+
+
+    @Override
+    public void finish() {
+        Log.d(TAG, "finish: ");
+        Intent data = new Intent();
+        data.putExtra("paied", true);
+        setResult(Activity.RESULT_OK, data);
+        super.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "onBackPressed: ");
+        super.onBackPressed();
     }
 }

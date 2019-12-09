@@ -11,6 +11,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String TAG;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

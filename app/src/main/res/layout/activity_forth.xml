@@ -7,10 +7,18 @@
     tools:context=".activity.ForthActivity">
 
     <Button
+        android:id="@+id/btnSendInMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="在主线程一直发送消息"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnOnNewIntent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试onNewIntent方法"
+        android:text="在主线程一直发送消息"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

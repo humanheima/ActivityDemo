@@ -57,3 +57,5 @@ com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onRestoreInst
 com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
 
 ```
+
+1. ActivityManagerService是运行在 system_server进程的
