@@ -8,13 +8,28 @@
     tools:context="com.hm.activitydemo.activity.MainActivity">
 
     <Button
-        android:id="@+id/btn1"
+        android:id="@+id/btnStartSelf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="40dp"
+        android:onClick="onClick"
+        android:text="再次启动自己"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/btnStartSecond"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="startSecondActivity"
+        android:onClick="onClick"
         android:text="启动SecondActivity"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"

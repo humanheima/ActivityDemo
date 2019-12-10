@@ -57,12 +57,26 @@ public class MainActivity extends BaseActivity {
         Log.e(TAG, "onConfigurationChanged");
     }
 
-    public void startSecondActivity(View view) {
-        //SecondActivity.launch(this);
+    public void startSecondActivity() {
+        SecondActivity.launch(this);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setComponent(new ComponentName(this, SecondActivity.class));
-        intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));
-        startActivity(intent);
+        //intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));
+        //startActivity(intent);
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnStartSelf:
+                //再次启动自己
+                MainActivity.launch(this);
+                break;
+            case R.id.btnStartSecond:
+                startSecondActivity();
+                break;
+            default:
+                break;
+        }
     }
 
     public void hookActivity(View view) {
