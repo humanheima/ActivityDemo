@@ -21,6 +21,15 @@ public class SecondActivity extends BaseActivity {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            //如果要在这里恢复的话，需要判断savedInstanceState是否为null
+            Log.d(TAG, "onCreate: savedInstanceState " + savedInstanceState.getString("text"));
+        }
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(TAG, "onNewIntent: ");

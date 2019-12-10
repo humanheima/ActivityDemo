@@ -37,7 +37,7 @@ Activity启动流程：
 
 原文：https://blog.csdn.net/lj19851227/article/details/82562115
 
-### 关于onNewIntent方法 ，Activity的启动模式无论是 singleTop,singleTask,singleInstance都会调用。
+### 关于onNewIntent方法 ，Activity的启动模式无论是 singleTop，singleTask，singleInstance都会调用。
 例如要被启动的Activity叫A
 1. A的启动模式是singleTop，如果A在栈顶，那么再次启动A那么onNewIntent方法会被调用。
 2. A的启动模式是singleTask，或者singleInstance，无论A在不在栈顶，那么再次启动A那么onNewIntent方法会被调用。
@@ -59,3 +59,6 @@ com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
 ```
 
 1. ActivityManagerService是运行在 system_server进程的
+
+* [Activity 的几种启动模式及应用场景](https://blog.csdn.net/lyc088456/article/details/79389727)
+* [onSaveInstanceState和onRestoreInstanceState详解](https://www.jianshu.com/p/89e0a7533dbe)
