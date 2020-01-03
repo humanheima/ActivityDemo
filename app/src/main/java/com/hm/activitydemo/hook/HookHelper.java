@@ -37,8 +37,11 @@ public class HookHelper {
         //获取IActivityManager
         Object iActivityManager = mInstanceField.get(defaultSingleton);
         Class<?> iActivityManagerClazz = Class.forName("android.app.IActivityManager");
-        Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-                new Class<?>[]{iActivityManagerClazz}, new IActivityManagerProxy(iActivityManager));
+        Object proxy = Proxy.newProxyInstance(
+                Thread.currentThread().getContextClassLoader(),
+                new Class<?>[]{iActivityManagerClazz},
+                new IActivityManagerProxy(iActivityManager)
+        );
         mInstanceField.set(defaultSingleton, proxy);
     }
 
