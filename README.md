@@ -62,3 +62,6 @@ com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
 
 * [Activity 的几种启动模式及应用场景](https://blog.csdn.net/lyc088456/article/details/79389727)
 * [onSaveInstanceState和onRestoreInstanceState详解](https://www.jianshu.com/p/89e0a7533dbe)
+
+
+todo 8.0及以上的hook还有问题，需要解决

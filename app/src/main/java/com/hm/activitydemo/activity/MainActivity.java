@@ -2,7 +2,6 @@ package com.hm.activitydemo.activity;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -74,6 +73,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btnStartSecond:
                 startSecondActivity();
                 break;
+            case R.id.btnCheckAppStatus:
+                CheckAppBackgroundOrForegroundActivity.launch(this);
+                break;
             default:
                 break;
         }
@@ -97,4 +99,5 @@ public class MainActivity extends BaseActivity {
         super.onNewIntent(intent);
         Log.d(TAG, "onNewIntent: ");
     }
+
 }

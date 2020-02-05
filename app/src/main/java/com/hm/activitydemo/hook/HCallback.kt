@@ -10,6 +10,7 @@ import java.lang.Exception
 /**
  * Created by dumingwei on 2019/2/23
  * Desc:
+ * 参考链接：http://liuwangshu.cn/framework/applicationprocess/1.html
  */
 class HCallback(val mHandler: Handler) : Handler.Callback {
 
@@ -28,7 +29,7 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
 
     override fun handleMessage(msg: Message): Boolean {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-
+            //todo 8.0以上还没处理
         } else {
             if (msg.what == LAUNCH_ACTIVITY) {
                 val obj = msg.obj

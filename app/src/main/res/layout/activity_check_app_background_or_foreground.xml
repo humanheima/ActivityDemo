@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.CheckAppBackgroundOrForegroundActivity">
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="显示信息"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnRunningTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="使用RunningTask"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnRunningProcess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="使用RunningProcess"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnActivityLifecycleCallbacks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="使用ActivityLifecycleCallbacks"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnUsageStatsManager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="使用UsageStatsManager"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnAccessibilityService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="使用AccessibilityService"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnParseProcess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="自解析/process"
+        android:textAllCaps="false" />
+
+</LinearLayout>
