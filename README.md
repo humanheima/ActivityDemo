@@ -64,4 +64,44 @@ com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
 * [onSaveInstanceState和onRestoreInstanceState详解](https://www.jianshu.com/p/89e0a7533dbe)
 
 
-todo 8.0及以上的hook还有问题，需要解决
+### todo 8.0及以上的hook还有问题，需要解决
+
+
+
+### 进程保活相关
+
+查看进程基本信息
+```
+adb shell ps|grep <package_name>
+```
+![查看进程信息](查看进程信息.png)
+
+
+|   |   |
+|---|---|
+| 值 |解释|
+|u0_a64|USER 进程当前用户|
+|4001|进程ID|
+|1143|进程的父进程ID|
+|731164|进程的虚拟内存大小|
+|31028|实际驻留”在内存中”的内存大小|
+|ffffffff|不知道|
+|b765af1b|不知道|
+|S|不知道|
+| com.hm.activitydemo|包名|
+
+
+查看当前进程的优先级
+
+我们可以通过cat /proc/进程id/oom_adj可以看到当前进程的adj值。adj值定义在com.android.server.am.ProcessList类中，这个类路径是${android-sdk-path}\sources\android-23\com\android\server\am\ProcessList.java。
+
+
+```
+cat /proc/进程id/oom_adj
+```
+
+
+
+* [android进程保活实践](https://www.jianshu.com/p/53c4d8303e19)
+* [Android进程保活的一般套路](https://www.jianshu.com/p/1da4541b70ad)
+

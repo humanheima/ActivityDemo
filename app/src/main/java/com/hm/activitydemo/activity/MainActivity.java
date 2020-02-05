@@ -8,7 +8,10 @@ import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 
+import com.hm.activitydemo.LiveService;
 import com.hm.activitydemo.R;
+import com.hm.activitydemo.ScreenBroadcastListener;
+import com.hm.activitydemo.ScreenManager;
 import com.hm.activitydemo.base.BaseActivity;
 import com.hm.activitydemo.hook.InstrumentationProxy;
 import com.hm.activitydemo.hook.TargetActivity;
@@ -30,7 +33,35 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         TAG = getClass().getName();
+
+        keepAlive();
+
         //replaceActivityInstrumentation(this);
+    }
+
+    /**
+     * 保活
+     */
+    private void keepAlive() {
+        /*final ScreenManager screenManager = ScreenManager.getInstance(this);
+        ScreenBroadcastListener listener = new ScreenBroadcastListener(this);
+        listener.registerListener(new ScreenBroadcastListener.ScreenStateListener() {
+            @Override
+            public void onScreenOn() {
+                Log.d(TAG, "onScreenOn: ");
+                screenManager.finishActivity();
+
+            }
+
+            @Override
+            public void onScreenOff() {
+                Log.d(TAG, "onScreenOff: ");
+                screenManager.startActivity();
+            }
+        });*/
+
+        Intent intent = new Intent(this, LiveService.class);
+        startService(intent);
     }
 
     private void replaceActivityInstrumentation(Activity activity) {
@@ -100,4 +131,10 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, "onNewIntent: ");
     }
 
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, LiveService.class);
+        stopService(intent);
+        super.onDestroy();
+    }
 }
