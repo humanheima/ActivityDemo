@@ -58,6 +58,23 @@ com.hm.activitydemo E/com.hm.activitydemo.activity.SecondActivity: onResume
 
 ```
 
+
+### 
+当Activity A 启动 Activity B的时候，两者的生命周期
+```
+A ------ >>>> onPause
+
+B ------ >>>> onCreate
+B ------ >>>> onStart
+B ------ >>>> onResume
+
+A ------ >>>> onStop
+
+
+
+```
+
+
 1. ActivityManagerService是运行在 system_server进程的
 
 * [Activity 的几种启动模式及应用场景](https://blog.csdn.net/lyc088456/article/details/79389727)

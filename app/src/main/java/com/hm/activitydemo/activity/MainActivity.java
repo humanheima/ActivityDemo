@@ -1,17 +1,17 @@
 package com.hm.activitydemo.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
 import com.hm.activitydemo.LiveService;
 import com.hm.activitydemo.R;
-import com.hm.activitydemo.ScreenBroadcastListener;
-import com.hm.activitydemo.ScreenManager;
 import com.hm.activitydemo.base.BaseActivity;
 import com.hm.activitydemo.hook.InstrumentationProxy;
 import com.hm.activitydemo.hook.TargetActivity;
@@ -36,7 +36,15 @@ public class MainActivity extends BaseActivity {
 
         keepAlive();
 
+        getMemoryInfo();
+
         //replaceActivityInstrumentation(this);
+    }
+
+    private void getMemoryInfo() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        Log.d(TAG, activityManager.getMemoryClass() + "");
+        Log.d(TAG, activityManager.getLargeMemoryClass() + "");
     }
 
     /**
