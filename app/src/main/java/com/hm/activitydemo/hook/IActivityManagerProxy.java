@@ -22,7 +22,10 @@ public class IActivityManagerProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Log.i(TAG, "invoke: methodName " + method.getName());
+
         if ("startActivity".equals(method.getName())) {
+            Log.i(TAG, "invoke: startActivity");
             //找到intent
             Intent intent = null;
             int index = 0;

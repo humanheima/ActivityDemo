@@ -1,5 +1,6 @@
 ### Activity
 
+
 ![生命周期图](activity_lifecycle.png)
 
 
@@ -118,7 +119,26 @@ cat /proc/进程id/oom_adj
 ```
 
 
+###  Activity 启动流程 概述
+
+1. 点击桌面图标，Launcher会调用onClick(View v)方法，最终内部会调用startActivitySafely(View v, Intent intent, ItemInfo item)方法。
+2. 调用Instrumentation 的 execStartActivity 来启动Activity。用于监控应用程序和系统之间的交互操作。
+3. 调用ActivityManagerService的startActivity方法，在这个过程中，因为我们设置了FLAG_ACTIVITY_NEW_TASK的flag，所以会创建一个新的任务栈。
+4. 然后因为我们要启动的Activity的应用进程还不存在，会调用ActivityManagerService的startProcessLocked方法，来启动一个新的进程。
+    最终是让Zygote进程fork出一个新的进程，并根据传递的”android.app.ActivityThread”字符串，通过反射执行ActivityThread的main方法对其进行初始化。
+5. 在ActivityThread的main方法中会执行，准备Looper，创建ActivityThread对象，创建ApplicationThread对象。调用attach方法初始化Application。然后开始主线程的消息循环。
+6. 调用attach方法初始化Application是调用ActivityManagerService的attachApplication方法，最终是通过ActivityThread的H类型的内部类对象发送消息，调用ActivityThread的handleBindApplication方法
+   创建了Application对象，并调用了Application的attach方法和onCreate方法。到此，应用是启动起来了。
+
+7. 应用启动以后，会真正启动Activity，是通过调用ActivityThread的scheduleTransaction方法，内部也是通过H发送消息，最终调用ActivityThread的handleLaunchActivity方法
+   ActivityThread的performLaunchActivity方法。在performLaunchActivity内部会调用Activity的attach方法。
+8. Activity的attach方法内部，会调用attachBaseContext，初始化PhoneWindow对象等。
+9  紧接着会调用Instrumentation的callActivityOnCreate方法方法，内部最终调用Activity的onCreate方法。
+10. 然后ActivityThread的handleStartActivity方法，ActivityThread的handleResumeActivity方法，使Activity onResume，并使DecorView可见。
+
+
 
 * [android进程保活实践](https://www.jianshu.com/p/53c4d8303e19)
 * [Android进程保活的一般套路](https://www.jianshu.com/p/1da4541b70ad)
+* [Android Hook AMS](https://www.jianshu.com/p/69127e78f210)
 

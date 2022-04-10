@@ -23,11 +23,12 @@ public class App extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         try {
+            Log.i(TAG, "attachBaseContext: ");
             /**
              * 这两行代码需要一起调用
              */
-            /*HookHelper.hookAMS();
-            HookHelper.hookHandler();*/
+            HookHelper.hookAMS();
+            HookHelper.hookHandler();
 
             //HookHelper.hookInstrumentation(base);
 
