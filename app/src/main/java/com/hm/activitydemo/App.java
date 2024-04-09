@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.hm.activitydemo.hook.HookHelper;
 
 
@@ -27,8 +26,8 @@ public class App extends Application {
             /**
              * 这两行代码需要一起调用
              */
-            //HookHelper.hookAMS();
-            //HookHelper.hookHandler();
+            HookHelper.hookAMS();
+            HookHelper.hookHandler();
 
             //HookHelper.hookInstrumentation(base);
 
@@ -49,7 +48,7 @@ public class App extends Application {
 
             @Override
             public void onActivityStarted(Activity activity) {
-                Log.d(TAG, "onActivityStarted: ");
+                Log.i(TAG, "onActivityStarted: ");
                 mActivityCount++;
 
             }
@@ -66,10 +65,10 @@ public class App extends Application {
 
             @Override
             public void onActivityStopped(Activity activity) {
-                Log.d(TAG, "onActivityStopped: ");
+                Log.i(TAG, "onActivityStopped: ");
                 mActivityCount--;
                 if (mActivityCount == 0) {
-                    Log.d(TAG, "onActivityStopped: 应用进入后台");
+                    Log.i(TAG, "onActivityStopped: 应用进入后台");
                 }
 
             }

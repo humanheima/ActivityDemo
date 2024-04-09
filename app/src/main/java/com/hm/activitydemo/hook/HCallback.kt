@@ -29,7 +29,8 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
 
     override fun handleMessage(msg: Message): Boolean {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-            //todo 8.0以上还没处理
+            //SDK版本26，也就是Android 8.0以上还没处理
+            Log.i(TAG, "handleMessage: 8.0以上还没处理")
         } else {
             if (msg.what == LAUNCH_ACTIVITY) {
                 val obj = msg.obj

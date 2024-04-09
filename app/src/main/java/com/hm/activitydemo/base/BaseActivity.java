@@ -16,7 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
-        Log.e(TAG, "onCreate");
+        Log.e(TAG, "onCreate，哈哈");
         setContentView(bindLayout());
         initData();
         bindEvent();
