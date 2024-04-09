@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import java.lang.Exception
 
 /**
  * Created by dumingwei on 2019/2/23
@@ -32,13 +31,16 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
             //SDK版本26，也就是Android 8.0以上还没处理
             Log.i(TAG, "handleMessage: 8.0以上还没处理")
         } else {
+            Log.i(TAG, "handleMessage: 8.0以下处理 msg = " + msg)
             if (msg.what == LAUNCH_ACTIVITY) {
                 val obj = msg.obj
                 try {
-                    //得到消息中的Intent（启动SubActivity的Intent）
-                    val intent: Intent = FieldUtil.getField(obj.javaClass, obj, "intent") as Intent
-                    //得到此前保存起来的Intent(启动TargetActivity的Intent)
-                    val target: Intent = intent.getParcelableExtra<Intent>(HookHelper.TARGET_INTENT)
+                    //Note: 得到消息中的Intent（启动SubActivity的Intent）
+                    val intent: Intent =
+                        FieldUtil.getField(obj.javaClass, obj, "intent") as Intent
+                    //Note: 得到此前保存起来的Intent(启动TargetActivity的Intent)
+                    val target: Intent =
+                        intent.getParcelableExtra<Intent>(HookHelper.TARGET_INTENT)
                     intent.component = target.component
 
                 } catch (e: Exception) {

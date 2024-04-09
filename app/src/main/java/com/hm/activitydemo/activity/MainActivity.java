@@ -6,16 +6,13 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
-
 import com.hm.activitydemo.LiveService;
 import com.hm.activitydemo.R;
 import com.hm.activitydemo.base.BaseActivity;
 import com.hm.activitydemo.hook.InstrumentationProxy;
 import com.hm.activitydemo.hook.TargetActivity;
-
 import java.lang.reflect.Field;
 
 public class MainActivity extends BaseActivity {
@@ -96,8 +93,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void startSecondActivity() {
-        SecondActivity.launch(this);
-        //Intent intent = new Intent(Intent.ACTION_VIEW);
+        //SecondActivity.launch(this);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setComponent(new ComponentName(this, SecondActivity.class));
         //intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));
         //startActivity(intent);
@@ -120,6 +117,11 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 这个Activity是没有在AndroidManifest.xml中注册的，通过hook的方式启动。替换占位的StubActivity
+     *
+     * @param view
+     */
     public void hookActivity(View view) {
         Intent intent = new Intent(MainActivity.this, TargetActivity.class);
         startActivity(intent);

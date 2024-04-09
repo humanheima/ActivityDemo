@@ -2,7 +2,6 @@ package com.hm.activitydemo.hook;
 
 import android.content.Intent;
 import android.util.Log;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -23,7 +22,6 @@ public class IActivityManagerProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Log.i(TAG, "invoke: methodName " + method.getName());
-
         if ("startActivity".equals(method.getName())) {
             Log.i(TAG, "invoke: startActivity");
             //找到intent
