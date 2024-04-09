@@ -27,8 +27,8 @@ public class App extends Application {
             /**
              * 这两行代码需要一起调用
              */
-            HookHelper.hookAMS();
-            HookHelper.hookHandler();
+            //HookHelper.hookAMS();
+            //HookHelper.hookHandler();
 
             //HookHelper.hookInstrumentation(base);
 

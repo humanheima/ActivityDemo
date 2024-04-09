@@ -121,22 +121,58 @@ cat /proc/进程id/oom_adj
 
 ###  Activity 启动流程 概述
 
-1. 点击桌面图标，Launcher会调用onClick(View v)方法，最终内部会调用startActivitySafely(View v, Intent intent, ItemInfo item)方法。
-2. 调用Instrumentation 的 execStartActivity 来启动Activity。用于监控应用程序和系统之间的交互操作。
-3. 调用ActivityManagerService的startActivity方法，在这个过程中，因为我们设置了FLAG_ACTIVITY_NEW_TASK的flag，所以会创建一个新的任务栈。
-4. 然后因为我们要启动的Activity的应用进程还不存在，会调用ActivityManagerService的startProcessLocked方法，来启动一个新的进程。
-    最终是让Zygote进程fork出一个新的进程，并根据传递的”android.app.ActivityThread”字符串，通过反射执行ActivityThread的main方法对其进行初始化。
-5. 在ActivityThread的main方法中会执行，准备Looper，创建ActivityThread对象，创建ApplicationThread对象。调用attach方法初始化Application。然后开始主线程的消息循环。
-6. 调用attach方法初始化Application是调用ActivityManagerService的attachApplication方法，最终是通过ActivityThread的H类型的内部类对象发送消息，调用ActivityThread的handleBindApplication方法
-   创建了Application对象，并调用了Application的attach方法和onCreate方法。到此，应用是启动起来了。
+1. 点击桌面图标，Launcher会调用onClick(View v)方法，Launcher 是 Activity 的子类，最终内部会调用 Activity 的 startActivity 方法。
+2. 调用Instrumentation 的 execStartActivity 来启动 Activity。用于监控应用程序和系统之间的交互操作。
+3. 调用 ActivityManagerService 的 startActivity 方法，在这个过程中，因为我们设置了 FLAG_ACTIVITY_NEW_TASK 的flag，所以会创建一个新的任务栈。
+4. 然后因为我们要启动的 Activity 的应用进程还不存在，会调用 ActivityManagerService 的 startProcessLocked方 法，来启动一个新的进程。
+    最终是让Zygote进程fork出一个新的进程，并根据传递的 ”android.app.ActivityThread” 字符串，通过反射执行ActivityThread的 `public static void main(String[] args)` 方法对其进行初始化。
+5. 在 ActivityThread 的 静态方法中 `public static void main(String[] args)`
 
-7. 应用启动以后，会真正启动Activity，是通过调用ActivityThread的scheduleTransaction方法，内部也是通过H发送消息，最终调用ActivityThread的handleLaunchActivity方法
+```java
+public static void main(String[] args) {
+    
+    //注释1处，准备主线程的Looper
+    Looper.prepareMainLooper();
+
+    //注释2处，创建ActivityThread对象
+    ActivityThread thread = new ActivityThread();
+    //注释3处，内部会发送消息，调用ActivityThread的handleBindApplication方法
+    thread.attach(false, startSeq);
+
+    if(sMainThreadHandler == null) {
+        sMainThreadHandler = thread.getHandler();
+    }
+
+    //注释4处，启动主线程的消息循环
+    Looper.loop();
+
+    throw new RuntimeException("Main thread loop unexpectedly exited");
+}
+```
+注释1处，准备主线程的Looper。
+注释2处，创建 ActivityThread 对象。在这个过程中，会初始化 ActivityThread 的一些成员变量：
+
+```java
+final ApplicationThread mAppThread = new ApplicationThread();
+final Looper mLooper = Looper.myLooper();
+final H mH = new H();
+```
+
+mAppThread 是一个 IApplicationThread.Stub 对象，当 ActivityManagerService 调用 ApplicationThread 的方法，
+例如：bindApplication 方法的时候，最终是通过 ActivityThread 的 H 类型的内部类对象发送消息，调用 ActivityThread 的 handleBindApplication 方法，创建了 Application 对象，并调用了 Application 的 attach 方法和 onCreate 方法。
+
+注释3处，调用attach方法初始化Application是调用ActivityManagerService的attachApplication方法，最终是通过ActivityThread的H类型的内部类对象发送消息。当注释4处，启动主线程的消息循环。处理消息的时候，调用ActivityThread的handleBindApplication方法
+创建了Application对象，并调用了Application的attach方法和onCreate方法。到此，应用是启动起来了。
+
+7. 应用启动以后，会真正启动Activity，是通过调用 ActivityThread 的scheduleTransaction方法，内部也是通过H发送消息，最终调用ActivityThread的handleLaunchActivity方法
    ActivityThread的performLaunchActivity方法。在performLaunchActivity内部会调用Activity的attach方法。
 8. Activity的attach方法内部，会调用attachBaseContext，初始化PhoneWindow对象等。
-9  紧接着会调用Instrumentation的callActivityOnCreate方法方法，内部最终调用Activity的onCreate方法。
+9. 紧接着会调用Instrumentation的callActivityOnCreate方法方法，内部最终调用Activity的onCreate方法。
 10. 然后ActivityThread的handleStartActivity方法，ActivityThread的handleResumeActivity方法，使Activity onResume，并使DecorView可见。
 
+### ActivityThread 和 ApplicationThread 并不是Thread类型的对象。
 
+但是他们都是在主线程中的对象。
 
 * [android进程保活实践](https://www.jianshu.com/p/53c4d8303e19)
 * [Android进程保活的一般套路](https://www.jianshu.com/p/1da4541b70ad)

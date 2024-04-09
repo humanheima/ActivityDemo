@@ -17,7 +17,8 @@ public class SecondActivity extends BaseActivity {
 
     public static void launch(Activity context) {
         Intent starter = new Intent(context, SecondActivity.class);
-        context.startActivityForResult(starter, 100);
+        //context.startActivityForResult(starter, 100);
+        context.startActivity(starter);
     }
 
     @Override
