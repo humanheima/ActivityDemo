@@ -21,13 +21,18 @@ public class IActivityManagerProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Log.i(TAG, "invoke: methodName " + method.getName());
-        if ("startActivity".equals(method.getName())) {
-            Log.i(TAG, "invoke: startActivity");
+        String name = method.getName();
+        Log.i(TAG, "invoke: methodName " + name);
+        if ("startActivity".equals(name)) {
+            Log.i(TAG, "invoke: startActivity\n" + Log.getStackTraceString(new Throwable()));
             //找到intent
             Intent intent = null;
             int index = 0;
             for (int i = 0; i < args.length; i++) {
+                Log.i(TAG, "invoke:" + name + "，args[" + i + "]" + args[i]);
+            }
+            for (int i = 0; i < args.length; i++) {
+
                 if (args[i] instanceof Intent) {
                     index = i;
                     break;
@@ -39,7 +44,8 @@ public class IActivityManagerProxy implements InvocationHandler {
             subIntent.setClassName("com.hm.activitydemo", "com.hm.activitydemo.hook.StubActivity");
             subIntent.putExtra(HookHelper.TARGET_INTENT, intent);
             args[index] = subIntent;
-            Log.e(TAG, "invoke: hook成功");
+            //这里其实启动任何一个Activity，即使在AndroidManifest中注册的Activity都会被我们的代理
+            Log.e(TAG, "invoke: hook成功"+subIntent.getComponent().getClassName());
         }
         return method.invoke(mActivityManager, args);
     }

@@ -32,9 +32,14 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
             //SDK版本26，也就是Android 8.0以上还没处理
             Log.i(TAG, "handleMessage: 8.0以上还没处理")
         } else {
-            Log.i(TAG, "handleMessage: 8.0以下处理 msg = " + msg)
             if (msg.what == LAUNCH_ACTIVITY) {
+                //msg = { when=-1ms what=100 obj=ActivityRecord{55dc1a3
+                //token=android.os.BinderProxy@fd4ca0
+                //{com.hm.activitydemo/com.hm.activitydemo.hook.StubActivity}} target=android.app.ActivityThread$H }
+                //Note: 注意，这里的msg.obj是ActivityRecord对象，是 StubActivity对象。
+                Log.i(TAG, "handleMessage: 8.0以下处理 msg = $msg")
                 val obj = msg.obj
+
                 try {
                     //Note: 得到消息中的Intent（启动SubActivity的Intent）
                     val intent: Intent =
@@ -45,7 +50,7 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
                     intent.component = target.component
 
                 } catch (e: Exception) {
-                    Log.d(TAG, "handleMessage: ${e.message}")
+                    Log.e(TAG, "handleMessage: ${e.message}")
                 }
 
             }
