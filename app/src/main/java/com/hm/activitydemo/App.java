@@ -24,10 +24,10 @@ public class App extends Application {
         try {
             Log.i(TAG, "attachBaseContext: ");
             /**
-             * 这两行代码需要一起调用
+             * 这两行代码需要一起调用，打开测试的时候，选用8.0以下的设备进行测试。
              */
-            HookHelper.hookAMS();
-            HookHelper.hookHandler();
+            //HookHelper.hookAMS();
+            //HookHelper.hookHandler();
 
             //HookHelper.hookInstrumentation(base);
 
