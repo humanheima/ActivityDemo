@@ -53,6 +53,10 @@ public class HookHelper {
         }
     }
 
+    /**
+     * 代理 android.app.ActivityThread.mH 的 mCallback 字段
+     * @throws Exception
+     */
     public static void hookHandler() throws Exception {
         Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
         Object currentActivityThread = FieldUtil.getField(activityThreadClass, null, "sCurrentActivityThread");

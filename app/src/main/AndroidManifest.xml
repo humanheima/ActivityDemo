@@ -36,10 +36,10 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name=".activity.SecondActivity"
-                android:process=":second"
-                android:launchMode="singleTop" />
+<!--        <activity-->
+<!--                android:name=".activity.SecondActivity"-->
+<!--                android:process=":second"-->
+<!--                android:launchMode="singleTop" />-->
 
         <activity
                 android:name=".activity.ThirdActivity"

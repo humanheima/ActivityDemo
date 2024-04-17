@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void startSecondActivity() {
-        //SecondActivity.launch(this);
+        SecondActivity.launch(this);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         //intent.setComponent(new ComponentName(this, SecondActivity.class));
         //intent.setComponent(new ComponentName(this, "com.hm.activitydemo.activity.SecondActivity"));

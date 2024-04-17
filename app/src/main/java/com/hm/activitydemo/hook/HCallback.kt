@@ -20,7 +20,8 @@ class HCallback(val mHandler: Handler) : Handler.Callback {
         /**
          * 100 就是ActivityThread.H 中的LAUNCH_ACTIVITY
          * public static final int LAUNCH_ACTIVITY = 100;
-
+         *
+         * 参考7版本的SDK http://androidxref.com/7.1.2_r36/xref/frameworks/base/core/java/android/app/ActivityThread.java
          */
         val LAUNCH_ACTIVITY = 100
     }
