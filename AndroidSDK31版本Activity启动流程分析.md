@@ -9,11 +9,11 @@
 
 * Activity： 就是一个Java对象，它会被创建，同时也会被垃圾回收销毁，只不过它受AMS(ActivityManagerService)管理，所以它才有生命周期。
 * ActivityResult：一个活动执行结果返回到原始活动的描述。
-* AMS - ActivityManagerService：以下简称AMS，服务端对象，负责系统中所有Activity、Service的生命周期以及BroadcastReceiver和ContentProvider的管理。实现了`IBinder`接口，可以用于进程间的通信。
+* AMS - ActivityManagerService：以下简称AMS，服务端对象，负责系统中所有 Activity 、Service 的生命周期以及 BroadcastReceiver 和 ContentProvider 的管理。实现了 `IBinder` 接口，可以用于进程间的通信。
 
 * ActivityThread ：它主要负责应用程序的主线程（也称为 UI 线程）的运行。管理应用程序的生命周期、处理事件、管理资源和组件以及与系统服务进行通信等。
 
-* ApplicationThread：ApplicationThread是ActivityThread的内部类，继承了IApplicationThread.Stub。是Activity整个框架中客户端(ActivityThread)和服务端(AMS)通信的接口。ApplicationThread 运行在服务端的Binder线程池中。
+* ApplicationThread：ApplicationThread 是 ActivityThread 的内部类，它充当系统服务器和应用进程之间的通信桥梁。它继承了 IApplicationThread.Stub 。是 Activity 整个框架中客户端( ActivityThread )和服务端(AMS)通信的接口。ApplicationThread 运行在服务端的Binder线程池中。
 
 * Instrumentation：用于监控程序和系统之间的交互操作。
 
@@ -30,7 +30,7 @@
 
 
 Activity的startActivity方法
-```
+```java
 @Override
 public void startActivity(Intent intent, Bundle options) {
     if (options != null) {
@@ -44,7 +44,7 @@ public void startActivity(Intent intent, Bundle options) {
 
 Activity的startActivityForResult方法精简版，第二个参数requestCode传入小于0的值表示不需要返回结果。
 
-```
+```java
 public void startActivityForResult(@RequiresPermission Intent intent, int requestCode, 
     @Nullable Bundle options) {
     if(mParent == null) {
@@ -696,6 +696,9 @@ private void handleBindApplication(AppBindData data) {
   //注释1处
   app = data.info.makeApplication(data.restrictedBackupMode, null);
   mInitialApplication = app;
+  
+  //注释1.5处， 在调用Application的onCreate之前，会调用installContentProviders，初始化所有的ContentProvider，并调用 ContentProvider的onCreate方法。
+  installContentProviders(app, data.providers);
  //...
  //注释2处启动app
  mInstrumentation.callApplicationOnCreate(app);
