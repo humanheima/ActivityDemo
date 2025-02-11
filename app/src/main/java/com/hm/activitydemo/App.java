@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.hm.activitydemo.hook.HookHelper;
 
 
@@ -26,10 +27,12 @@ public class App extends Application {
             /**
              * 这两行代码需要一起调用，打开测试的时候，选用8.0以下的设备进行测试。
              */
-            //HookHelper.hookAMS();
+            HookHelper.hookAMS();
             //HookHelper.hookHandler();
 
             //HookHelper.hookInstrumentation(base);
+
+            DeviceUtil.printDevice();
 
         } catch (Exception e) {
             e.printStackTrace();
